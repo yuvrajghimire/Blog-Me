@@ -1,0 +1,44 @@
+name: blog_me
+description: A blog app
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  cloud_firestore: ^3.1.8
+  cupertino_icons: ^1.0.2
+  firebase_auth: ^3.3.7
+  firebase_core: ^1.12.0
+  firebase_storage: ^10.2.7
+  flutter:
+    sdk: flutter
+  flutter_screenutil: ^5.3.1
+  fluttericon: ^2.0.0
+  image_picker: ^0.8.4+9
+  provider: ^6.0.2
+  uuid: ^3.0.6
+
+dev_dependencies:
+  flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/user.png
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Black.ttf
+        - asset: assets/fonts/Nunito-Bold.ttf
+        - asset: assets/fonts/Nunito-ExtraBold.ttf
+        - asset: assets/fonts/Nunito-ExtraLight.ttf
+        - asset: assets/fonts/Nunito-Light.ttf
+        - asset: assets/fonts/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito-Medium.ttf
+        - asset: assets/fonts/Nunito-SemiBold.ttf
