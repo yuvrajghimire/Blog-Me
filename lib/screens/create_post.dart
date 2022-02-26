@@ -19,9 +19,9 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _tagsController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _tagsController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   int _page = 0;
   Uint8List? _file;
   String category = '';
@@ -116,34 +116,35 @@ class _CreatePostState extends State<CreatePost> {
     final User user = Provider.of<UserProvider>(context).getUser;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('Create Article',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  )),
-              _page == 0
-                  ? IconButton(onPressed: () {}, icon: Icon(Icons.close))
-                  : TextButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(primaryColor)),
-                      onPressed: () => postImage(user.uid, user.userName,
-                          user.fullName, user.photoUrl),
-                      child: const Text('POST',
-                          style: TextStyle(
-                              color: secondaryColor,
-                              fontWeight: FontWeight.bold)))
-            ],
-          ),
-          _page == 0
-              ? Expanded(
-                  child: Column(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Create Article',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    )),
+                _page == 0
+                    ? IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.close))
+                    : TextButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(primaryColor)),
+                        onPressed: () => postImage(user.uid, user.userName,
+                            user.fullName, user.photoUrl),
+                        child: const Text('POST',
+                            style: TextStyle(
+                                color: secondaryColor,
+                                fontWeight: FontWeight.bold)))
+              ],
+            ),
+            _page == 0
+                ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 15),
@@ -175,9 +176,10 @@ class _CreatePostState extends State<CreatePost> {
                                   height: 100,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    color: Color.fromARGB(255, 216, 212, 212),
+                                    color: const Color.fromARGB(
+                                        255, 216, 212, 212),
                                   ),
-                                  child: Center(child: Icon(Icons.add))),
+                                  child: const Center(child: Icon(Icons.add))),
                           IconButton(
                             icon: const Icon(
                               Icons.upload,
@@ -244,87 +246,84 @@ class _CreatePostState extends State<CreatePost> {
                         textInputType: TextInputType.text,
                       ),
                     ],
-                  ),
-                )
-              : Expanded(
-                  child: Column(
+                  )
+                : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 15),
                       label("Write the content for your blog"),
                       const SizedBox(height: 15),
-                      Expanded(
-                        child: TextFormField(
-                          cursorColor: Theme.of(context).primaryColor,
-                          minLines: 30,
-                          maxLines: 100,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: primaryColor,
-                              fontSize: 14),
-                          controller: _descriptionController,
-                          decoration: InputDecoration(
-                            hintStyle: const TextStyle(fontSize: 16),
-                            hintText: 'Description',
-                            border: inputBorder,
-                            focusedBorder: inputBorder,
-                            enabledBorder: inputBorder,
-                            filled: true,
-                          ),
+                      TextFormField(
+                        cursorColor: Theme.of(context).primaryColor,
+                        minLines: 25,
+                        maxLines: 100,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: primaryColor,
+                            fontSize: 14),
+                        controller: _descriptionController,
+                        decoration: InputDecoration(
+                          hintStyle: const TextStyle(fontSize: 16),
+                          hintText: 'Description',
+                          border: inputBorder,
+                          focusedBorder: inputBorder,
+                          enabledBorder: inputBorder,
+                          filled: true,
                         ),
                       ),
                     ],
                   ),
-                ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Text('${_page + 1}',
-                          style: const TextStyle(fontWeight: FontWeight.w900)),
-                      Text(' OF 2',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey.shade600)),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: InkWell(
-                    focusColor: Colors.transparent,
-                    onTap: () {
-                      // print(_page);
-                      if (_page == 0) {
-                        setState(() {
-                          _page = 1;
-                        });
-                      } else {
-                        setState(() {
-                          _page = 0;
-                        });
-                      }
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: primaryColor),
-                      child: Center(
-                          child: Text("${_page == 0 ? "Next Step" : "Go Back"}",
-                              style: TextStyle(color: secondaryColor))),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Text('${_page + 1}',
+                            style:
+                                const TextStyle(fontWeight: FontWeight.w900)),
+                        Text(' OF 2',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey.shade600)),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 2,
+                    child: InkWell(
+                      focusColor: Colors.transparent,
+                      onTap: () {
+                        // print(_page);
+                        if (_page == 0) {
+                          setState(() {
+                            _page = 1;
+                          });
+                        } else {
+                          setState(() {
+                            _page = 0;
+                          });
+                        }
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: primaryColor),
+                        child: Center(
+                            child: Text(_page == 0 ? "Next Step" : "Go Back",
+                                style: const TextStyle(color: secondaryColor))),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

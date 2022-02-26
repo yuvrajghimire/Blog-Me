@@ -18,7 +18,6 @@ void main() async {
   } else {
     await Firebase.initializeApp();
   }
-
   runApp(const MyApp());
 }
 
@@ -50,28 +49,29 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
               scaffoldBackgroundColor: secondaryColor, fontFamily: 'Nunito'),
           home: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.hasData) {
-                    return const ResponsiveLayout(
-                      webScreenLayout: WebScreenLayout(),
-                      mobileScreenLayout: MobileScreenLayout(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text('${snapshot.error}'),
-                    );
-                  }
-                }
-                // means connection to future hasnt been made yet
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  return const ResponsiveLayout(
+                    webScreenLayout: WebScreenLayout(),
+                    mobileScreenLayout: MobileScreenLayout(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('${snapshot.error}'),
                   );
                 }
-                return const LoginScreen();
-              }),
+              }
+              // means connection to future hasnt been made yet
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return const LoginScreen();
+            },
+          ),
         ),
       ),
     );

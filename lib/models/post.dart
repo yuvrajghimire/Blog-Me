@@ -10,6 +10,7 @@ class Post {
   final String postUrl;
   final String postId;
   final String profileImage;
+  // ignore: prefer_typing_uninitialized_variables
   final likes;
   final List tags;
   final String category;

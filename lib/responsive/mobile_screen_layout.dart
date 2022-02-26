@@ -1,10 +1,10 @@
-import 'package:blog_me/providers/user_provider.dart';
+// import 'package:blog_me/providers/user_provider.dart';
 import 'package:blog_me/screens/create_post.dart';
 import 'package:blog_me/screens/feed_screen.dart';
 import 'package:blog_me/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:blog_me/models/user.dart' as model;
+// import 'package:provider/provider.dart';
+// import 'package:blog_me/models/user.dart' as model;
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
@@ -40,12 +40,12 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
+    // model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: PageView(
-          children: [
+          children: const [
             FeedScreen(),
             Text('Search'),
             CreatePost(),
