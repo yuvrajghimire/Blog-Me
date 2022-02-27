@@ -24,8 +24,8 @@ class _CreatePostState extends State<CreatePost> {
   final TextEditingController _descriptionController = TextEditingController();
   int _page = 0;
   Uint8List? _file;
-  String category = '';
-  List tags = [];
+  String selectedCategory = 'Any';
+  List<String> tags = [];
 
   _selectImage(BuildContext parentContext) async {
     return showDialog(
@@ -74,6 +74,7 @@ class _CreatePostState extends State<CreatePost> {
   }
 
   void postImage(
+    List<String> tags,
     String uid,
     String username,
     String fullname,
@@ -84,7 +85,7 @@ class _CreatePostState extends State<CreatePost> {
           uid,
           _titleController.text,
           _descriptionController.text,
-          category,
+          selectedCategory,
           tags,
           _file!,
           username,
@@ -106,6 +107,13 @@ class _CreatePostState extends State<CreatePost> {
     _titleController.dispose();
     _tagsController.dispose();
     _descriptionController.dispose();
+  }
+
+  checkTags(str) {
+    setState(() {
+      tags = str.split(' ');
+      tags.removeWhere((element) => element == '');
+    });
   }
 
   @override
@@ -135,8 +143,8 @@ class _CreatePostState extends State<CreatePost> {
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(primaryColor)),
-                        onPressed: () => postImage(user.uid, user.userName,
-                            user.fullName, user.photoUrl),
+                        onPressed: () => postImage(tags, user.uid,
+                            user.userName, user.fullName, user.photoUrl),
                         child: const Text('POST',
                             style: TextStyle(
                                 color: secondaryColor,
@@ -204,15 +212,15 @@ class _CreatePostState extends State<CreatePost> {
                             icon: const SizedBox(),
                             hint: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.arrow_drop_down_circle_outlined,
-                                  color: Theme.of(context).primaryColor,
+                                  color: primaryColor,
                                 ),
                                 const SizedBox(width: 20),
-                                Text('Category',
-                                    style: TextStyle(
+                                Text(selectedCategory,
+                                    style: const TextStyle(
                                         fontFamily: 'Nunito',
-                                        color: Theme.of(context).primaryColor))
+                                        color: primaryColor))
                               ],
                             ),
                             style: TextStyle(
@@ -224,27 +232,79 @@ class _CreatePostState extends State<CreatePost> {
                                 child: SizedBox(
                                   width: 130,
                                   child: Text(items,
-                                      style: TextStyle(
-                                          color: Theme.of(context).primaryColor,
-                                          fontSize: 16)),
+                                      style: const TextStyle(
+                                          color: primaryColor, fontSize: 16)),
                                 ),
                               );
                             }).toList(),
-                            onChanged: (dynamic value) {},
+                            onChanged: (dynamic value) {
+                              setState(() {
+                                selectedCategory = value.toString();
+                              });
+                            },
                           ),
                         ),
                       ),
                       const SizedBox(height: 30),
                       label("Let's give your article some tags"),
                       const SizedBox(height: 15),
-                      TextFieldInput(
-                        textEditingController: _tagsController,
-                        hintText: 'Enter tags separated by space',
-                        icon:
-                            const Icon(Icons.tag_outlined, color: primaryColor),
-                        isPass: false,
-                        textInputType: TextInputType.text,
+                      TextField(
+                        onChanged: (str) {
+                          checkTags(str);
+                        },
+                        controller: _tagsController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.tag_outlined,
+                              color: primaryColor),
+                          hintText: 'Enter tags separated by space',
+                          hintStyle: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black38,
+                              fontSize: 14),
+                          border: inputBorder,
+                          focusedBorder: inputBorder,
+                          enabledBorder: inputBorder,
+                          filled: true,
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: false,
                       ),
+                      const SizedBox(height: 10),
+                      tags.isEmpty
+                          ? const SizedBox()
+                          : SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: tags
+                                    .map(
+                                      (data) => Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 6),
+                                        margin:
+                                            const EdgeInsets.only(right: 10),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.grey,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Text(
+                                          '#${data.toLowerCase()}',
+                                          style: const TextStyle(
+                                            color: primaryColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
                     ],
                   )
                 : Column(

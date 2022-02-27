@@ -4,7 +4,6 @@ import 'package:blog_me/utils/variables_constants.dart';
 import 'package:blog_me/widgets/post_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -71,21 +70,21 @@ class _FeedScreenState extends State<FeedScreen> {
                 const Text(
                   'Discover',
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 23,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const Text(
                   'New Articles',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: Colors.grey,
                   ),
                 ),
                 const SizedBox(height: 20),
                 SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: categories
@@ -115,7 +114,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                   color: _selectedCategory == data
                                       ? Colors.white
                                       : primaryColor,
-                                  fontSize: 14,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -129,8 +128,13 @@ class _FeedScreenState extends State<FeedScreen> {
             ),
             const SizedBox(height: 20),
             StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('posts').snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('posts')
+                  .orderBy(
+                    'datePublished',
+                    descending: true,
+                  )
+                  .snapshots(),
               builder: (context,
                   AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -139,10 +143,15 @@ class _FeedScreenState extends State<FeedScreen> {
 
                 return ListView.builder(
                   shrinkWrap: true,
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    return PostCard(snap: snapshot.data!.docs[index].data());
+                    return _selectedCategory == 'Any'
+                        ? PostCard(snap: snapshot.data!.docs[index].data())
+                        : _selectedCategory ==
+                                snapshot.data!.docs[index].data()['category']
+                            ? PostCard(snap: snapshot.data!.docs[index].data())
+                            : const SizedBox();
                   },
                 );
               },

@@ -1,10 +1,10 @@
-// import 'package:blog_me/providers/user_provider.dart';
 import 'package:blog_me/screens/create_post.dart';
 import 'package:blog_me/screens/feed_screen.dart';
+import 'package:blog_me/screens/profile_screen.dart';
+import 'package:blog_me/screens/search_screen.dart';
 import 'package:blog_me/utils/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:blog_me/models/user.dart' as model;
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
@@ -40,17 +40,16 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
   @override
   Widget build(BuildContext context) {
-    // model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: PageView(
-          children: const [
-            FeedScreen(),
-            Text('Search'),
-            CreatePost(),
-            Text('Liked'),
-            Text('Profile'),
+          children: [
+            const FeedScreen(),
+            const SearchScreen(),
+            const CreatePost(),
+            const Text('Liked'),
+            ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid)
           ],
           controller: pageController,
           onPageChanged: onPageChanged,

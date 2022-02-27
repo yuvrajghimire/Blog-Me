@@ -3,8 +3,20 @@ var categories = [
   'Health',
   'Lifestyle',
   'Internet',
+  'World',
   'Politics',
   'Comedy',
   'Adventure',
-  'Social Media'
+  'Social Media',
+  'Music',
+  'Animals',
+  'Nature'
+];
+
+const actions = [
+  'Edit',
+  'Copy',
+  'Share',
+  'Open in browser',
+  'Delete',
 ];
