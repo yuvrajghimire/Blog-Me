@@ -5,6 +5,7 @@ import 'package:blog_me/utils/colors.dart';
 import 'package:blog_me/utils/utils.dart';
 import 'package:blog_me/utils/variables_constants.dart';
 import 'package:blog_me/widgets/comment_card.dart';
+import 'package:blog_me/widgets/like_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,9 @@ class DetailPage extends StatefulWidget {
   final snap;
   // ignore: prefer_typing_uninitialized_variables
   final postId;
-  const DetailPage({Key? key, required this.postId, required this.snap})
+  final index;
+  const DetailPage(
+      {Key? key, required this.postId, required this.snap, required this.index})
       : super(key: key);
 
   @override
@@ -26,6 +29,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   final TextEditingController _commentController = TextEditingController();
   String _selectedCategory = 'Any';
+  bool isLikeAnimating = false;
 
   @override
   void dispose() {
@@ -97,38 +101,116 @@ class _DetailPageState extends State<DetailPage> {
             ),
             const SizedBox(height: 20),
             SizedBox(
-                height: 280,
-                // child: Image.network(
-                //   widget.snap['postUrl'],
-                // ),
-                child: CachedNetworkImage(
-                  // imageUrl: 'https://wallpapercave.com/wp/CpRGNUC.jpg',
-                  imageUrl: widget.snap['postUrl'],
-                  placeholder: (context, url) => Image.asset(
-                    'assets/images/loading.gif',
-                    fit: BoxFit.cover,
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+              height: 280,
+              // child: Image.network(
+              //   widget.snap['postUrl'],
+              // ),
+              child: CachedNetworkImage(
+                imageUrl: 'https://wallpapercave.com/wp/CpRGNUC.jpg',
+                // imageUrl: widget.snap['postUrl'],
+                placeholder: (context, url) => Image.asset(
+                  'assets/images/loading.gif',
                   fit: BoxFit.cover,
-                )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.thumb_up_outlined,
-                    size: 22,
-                  ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.bookmark_border,
-                    size: 22,
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
+            ),
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('posts')
+                  .orderBy(
+                    'datePublished',
+                    descending: true,
+                  )
+                  .snapshots(),
+              builder: (context,
+                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
+                            onPressed: () async {
+                              await FirestoreMethods().likePost(
+                                  snapshot.data!.docs[widget.index]['postId'],
+                                  user.uid,
+                                  snapshot.data!.docs[widget.index]['likes']);
+                            },
+                            icon: snapshot.data!.docs[widget.index]['likes']
+                                    .contains(user.uid)
+                                ? const Icon(Icons.thumb_up, size: 22)
+                                : const Icon(Icons.thumb_up_outlined, size: 22),
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                              '${snapshot.data!.docs[widget.index]['likes'].length} likes',
+                              style: const TextStyle(
+                                  color: primaryColor, fontSize: 12)),
+                        ],
+                      ),
+                      const SizedBox(width: 5),
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        onPressed: () {},
+                        icon: const Icon(Icons.bookmark_border, size: 22),
+                      ),
+                      const SizedBox(width: 5),
+                      widget.snap['uid'] != user.uid
+                          ? const SizedBox()
+                          : PopupMenuButton(
+                              // initialValue: 2,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              child: const Icon(Icons.more_vert,
+                                  size: 19, color: primaryColor),
+                              itemBuilder: (popupContext) {
+                                return List.generate(
+                                  actions.length,
+                                  (popupIndex) {
+                                    return PopupMenuItem(
+                                      textStyle:
+                                          const TextStyle(color: primaryColor),
+                                      onTap: () async {
+                                        if (popupIndex == 0) {
+                                          // print('object');
+                                          Navigator.of(context).pop();
+                                          Future.delayed(Duration(seconds: 2),
+                                              () {
+                                            FirestoreMethods().deletePost(
+                                              widget.snap['postId'],
+                                            );
+                                          });
+                                        }
+                                      },
+                                      value: popupIndex,
+                                      child: Text(actions[popupIndex],
+                                          style: TextStyle(
+                                              color: actions[popupIndex] ==
+                                                      'Delete'
+                                                  ? Colors.red
+                                                  : Theme.of(context)
+                                                      .primaryColor,
+                                              fontSize: 16,
+                                              fontFamily: 'Nunito')),
+                                    );
+                                  },
+                                );
+                              },
+                            )
+                    ],
                   ),
-                ),
-              ],
+                );
+              },
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -211,7 +293,7 @@ class _DetailPageState extends State<DetailPage> {
                     // fit: BoxFit.cover,
                   ),
                   radius: 18,
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.grey,
                 ),
                 Expanded(
                   child: Padding(

@@ -48,7 +48,6 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
             const FeedScreen(),
             const SearchScreen(),
             const CreatePost(),
-            const Text('Liked'),
             ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid)
           ],
           controller: pageController,
@@ -75,11 +74,6 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
           BottomNavigationBarItem(
             icon: Icon(Icons.add_circle),
             label: 'Create Blog',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Liked',
             backgroundColor: primaryColor,
           ),
           BottomNavigationBarItem(

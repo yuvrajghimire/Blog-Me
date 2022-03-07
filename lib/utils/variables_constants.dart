@@ -14,9 +14,5 @@ var categories = [
 ];
 
 const actions = [
-  'Edit',
-  'Copy',
-  'Share',
-  'Open in browser',
   'Delete',
 ];

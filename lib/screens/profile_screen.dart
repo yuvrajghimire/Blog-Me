@@ -1,5 +1,6 @@
 import 'package:blog_me/resources/auth.dart';
 import 'package:blog_me/resources/firestore_methods.dart';
+import 'package:blog_me/screens/detail_screen.dart';
 import 'package:blog_me/screens/follow_screen.dart';
 import 'package:blog_me/screens/login_screen.dart';
 import 'package:blog_me/utils/colors.dart';
@@ -215,32 +216,109 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: CircularProgressIndicator(),
                         );
                       }
-
-                      return GridView.builder(
+                      return ListView.builder(
                         shrinkWrap: true,
+                        physics: const ScrollPhysics(),
                         itemCount: (snapshot.data! as dynamic).docs.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 5,
-                          mainAxisSpacing: 5,
-                          childAspectRatio: 1,
-                        ),
                         itemBuilder: (context, index) {
                           DocumentSnapshot snap =
                               (snapshot.data! as dynamic).docs[index];
-                          return Container();
+                          return Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade300),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 200,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    child: CachedNetworkImage(
+                                      // imageUrl:
+                                      //     'https://asia.olympus-imaging.com/content/000090033.jpg',
+                                      imageUrl: snap['postUrl'],
+                                      placeholder: (context, url) =>
+                                          Image.asset(
+                                        'assets/images/loading.gif',
+                                        fit: BoxFit.cover,
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      snap['title'],
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '${snap['description'].length > 20 ? snap['description'].substring(0, 20) + '...' : snap['description']}',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => DetailPage(
+                                              postId: snap['postId'].toString(),
+                                              snap: snap,
+                                              index: index,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Text('See more',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  primaryColor)),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
                           // SizedBox(
-                          //   child: SizedBox(
-                          //     child: ClipRRect(
-                          //       borderRadius: BorderRadius.circular(5),
-                          //       child: Image(
-                          //         // image: CachedNetworkImageProvider(
-                          //         //   'https://1.bp.blogspot.com/-33yWnmi1pDs/UQfUtNjwhOI/AAAAAAAAg08/xzu7cauygLY/s1600/TatraPhotographylake2534671.jpg',
-                          //         // ),
-                          //         image: NetworkImage(snap['postUrl']),
-                          //         fit: BoxFit.cover,
-                          //       ),
+                          //   child: ClipRRect(
+                          //     borderRadius: BorderRadius.circular(5),
+                          //     child: Image(
+                          //       // image: CachedNetworkImageProvider(
+                          //       //   'https://1.bp.blogspot.com/-33yWnmi1pDs/UQfUtNjwhOI/AAAAAAAAg08/xzu7cauygLY/s1600/TatraPhotographylake2534671.jpg',
+                          //       // ),
+                          //       image: NetworkImage(snap['postUrl']),
+                          //       fit: BoxFit.cover,
                           //     ),
                           //   ),
                           // );

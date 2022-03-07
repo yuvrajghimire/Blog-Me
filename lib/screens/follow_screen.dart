@@ -1,8 +1,5 @@
-import 'package:blog_me/resources/auth.dart';
-import 'package:blog_me/resources/firestore_methods.dart';
 import 'package:blog_me/screens/profile_screen.dart';
 import 'package:blog_me/utils/colors.dart';
-import 'package:blog_me/widgets/follow_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,14 +59,15 @@ class _FollowScreenState extends State<FollowScreen> {
   @override
   Widget build(BuildContext context) {
     userData = widget.userSnap.data()!;
-    print(widget.userSnap.data()![widget.follow.toLowerCase()].length);
+    // print(widget.userSnap.data()![widget.follow.toLowerCase()].length);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: Text(widget.follow),
       ),
       body: ListView.builder(
-        itemCount: widget.userSnap.data()![widget.follow.toLowerCase()].length,
+        itemCount: 1,
+        // itemCount: widget.userSnap.data()![widget.follow.toLowerCase()].length,
         itemBuilder: (context, index) {
           // print((snapshot.data! as dynamic).docs[index].data());
           // print((snapshot.data! as dynamic).docs);
@@ -90,11 +88,13 @@ class _FollowScreenState extends State<FollowScreen> {
                 print((snapshot.data! as dynamic).docs[index]['fullName']);
                 return InkWell(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ProfileScreen(
-                        uid: (snapshot.data! as dynamic).docs[index]['uid'],
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(
+                          uid: (snapshot.data! as dynamic).docs[index]['uid'],
+                        ),
                       ),
-                    ));
+                    );
                   },
                   child: ListTile(
                     leading: CircleAvatar(
@@ -151,7 +151,6 @@ class _FollowScreenState extends State<FollowScreen> {
                     //       ),
                   ),
                 );
-                ;
               }
             },
           );

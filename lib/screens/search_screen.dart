@@ -66,7 +66,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       ),
                       child: ListTile(
-                        leading: const CircleAvatar(
+                        leading: CircleAvatar(
                           backgroundImage:
                               // NetworkImage(
                               //   (snapshot.data! as dynamic).docs[index]['photoUrl'],
@@ -75,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             'https://wallpapercave.com/wp/CpRGNUC.jpg',
                             // imageUrl: widget.snap['postUrl'],
                             // placeholder: (context, url) =>
-                            //     CircularProgressIndicator(),
+                            //  CircularProgressIndicator(),
                             // errorWidget: (context, url, error) => Icon(Icons.error),
                             // fit: BoxFit.cover,
                           ),
@@ -111,8 +111,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       //   fit: BoxFit.cover,
                       // ),
                       CachedNetworkImage(
-                    imageUrl: 'https://wallpapercave.com/wp/CpRGNUC.jpg',
-                    // imageUrl: widget.snap['postUrl'],
+                    // imageUrl: 'https://wallpapercave.com/wp/CpRGNUC.jpg',
+                    imageUrl: (snapshot.data! as dynamic).docs[index]
+                        ['postUrl'],
                     placeholder: (context, url) =>
                         const CircularProgressIndicator(),
                     errorWidget: (context, url, error) =>

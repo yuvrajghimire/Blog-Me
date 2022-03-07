@@ -25,43 +25,37 @@ class _FeedScreenState extends State<FeedScreen> {
           shrinkWrap: true,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // logo
-                const Expanded(
-                  child: Text(
-                    'BlogMe',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                    ),
+                const Text(
+                  'BlogMe',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
                 // switch
-                Expanded(
-                  child: Switch(
-                    value: switchValue,
-                    onChanged: (val) {
-                      if (val = false) {
-                        setState(() {
-                          switchValue = true;
-                        });
-                      } else {
-                        setState(() {
-                          switchValue = false;
-                        });
-                      }
-                    },
-                  ),
-                ),
-                // search
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: () {},
+                Row(
+                  children: [
+                    Text('Light Mode'),
+                    Switch(
+                      value: switchValue,
+                      onChanged: (val) {
+                        print(val);
+                        // if (val = true) {
+                        //   setState(() {
+                        //     switchValue = true;
+                        //   });
+                        // }
+                        // if (val = false) {
+                        //   setState(() {
+                        //     switchValue = false;
+                        //   });
+                        // }
+                      },
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -147,10 +141,14 @@ class _FeedScreenState extends State<FeedScreen> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     return _selectedCategory == 'Any'
-                        ? PostCard(snap: snapshot.data!.docs[index].data())
+                        ? PostCard(
+                            snap: snapshot.data!.docs[index].data(),
+                            index: index)
                         : _selectedCategory ==
                                 snapshot.data!.docs[index].data()['category']
-                            ? PostCard(snap: snapshot.data!.docs[index].data())
+                            ? PostCard(
+                                snap: snapshot.data!.docs[index].data(),
+                                index: index)
                             : const SizedBox();
                   },
                 );

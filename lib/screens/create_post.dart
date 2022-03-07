@@ -333,7 +333,7 @@ class _CreatePostState extends State<CreatePost> {
                       ),
                     ],
                   ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 100),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
