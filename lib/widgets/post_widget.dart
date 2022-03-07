@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 class PostCard extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   final snap;
+  // ignore: prefer_typing_uninitialized_variables
   final index;
   const PostCard({Key? key, required this.snap, required this.index})
       : super(key: key);

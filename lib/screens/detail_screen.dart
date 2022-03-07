@@ -5,7 +5,6 @@ import 'package:blog_me/utils/colors.dart';
 import 'package:blog_me/utils/utils.dart';
 import 'package:blog_me/utils/variables_constants.dart';
 import 'package:blog_me/widgets/comment_card.dart';
-import 'package:blog_me/widgets/like_animation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,7 @@ class DetailPage extends StatefulWidget {
   final snap;
   // ignore: prefer_typing_uninitialized_variables
   final postId;
+  // ignore: prefer_typing_uninitialized_variables
   final index;
   const DetailPage(
       {Key? key, required this.postId, required this.snap, required this.index})
@@ -28,7 +28,6 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   final TextEditingController _commentController = TextEditingController();
-  String _selectedCategory = 'Any';
   bool isLikeAnimating = false;
 
   @override
@@ -106,7 +105,7 @@ class _DetailPageState extends State<DetailPage> {
               //   widget.snap['postUrl'],
               // ),
               child: CachedNetworkImage(
-                imageUrl: 'https://wallpapercave.com/wp/CpRGNUC.jpg',
+                imageUrl: widget.snap['postUrl'],
                 // imageUrl: widget.snap['postUrl'],
                 placeholder: (context, url) => Image.asset(
                   'assets/images/loading.gif',
@@ -184,8 +183,8 @@ class _DetailPageState extends State<DetailPage> {
                                         if (popupIndex == 0) {
                                           // print('object');
                                           Navigator.of(context).pop();
-                                          Future.delayed(Duration(seconds: 2),
-                                              () {
+                                          Future.delayed(
+                                              const Duration(seconds: 2), () {
                                             FirestoreMethods().deletePost(
                                               widget.snap['postId'],
                                             );
@@ -221,10 +220,12 @@ class _DetailPageState extends State<DetailPage> {
                   style: const TextStyle(fontSize: 14)),
             ),
             const SizedBox(height: 20),
-            Text(
-              'Tags',
-              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
-            ),
+            widget.snap['tags'].length == 0
+                ? const SizedBox()
+                : Text(
+                    'Tags',
+                    style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                  ),
             const SizedBox(height: 5),
             widget.snap['tags'].length == 0
                 ? const SizedBox()
@@ -234,34 +235,23 @@ class _DetailPageState extends State<DetailPage> {
                     child: Row(
                       children: widget.snap['tags']
                           .map<Widget>(
-                            (data) => InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _selectedCategory = data;
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 6),
-                                margin: const EdgeInsets.only(right: 10),
-                                decoration: BoxDecoration(
-                                  color: _selectedCategory == data
-                                      ? primaryColor
-                                      : Colors.transparent,
-                                  border: Border.all(
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
+                            (data) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 6),
+                              margin: const EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                color: primaryColor,
+                                border: Border.all(
+                                  color: Colors.grey,
                                 ),
-                                child: Text(
-                                  '#${data.toLowerCase()}',
-                                  style: TextStyle(
-                                    color: _selectedCategory == data
-                                        ? Colors.white
-                                        : primaryColor,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Text(
+                                '#${data.toLowerCase()}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),

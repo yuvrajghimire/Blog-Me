@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class FollowScreen extends StatefulWidget {
   final String uid;
+  // ignore: prefer_typing_uninitialized_variables
   final userSnap;
   final String follow;
   const FollowScreen(
@@ -66,9 +67,9 @@ class _FollowScreenState extends State<FollowScreen> {
         title: Text(widget.follow),
       ),
       body: ListView.builder(
-        itemCount: 1,
-        // itemCount: widget.userSnap.data()![widget.follow.toLowerCase()].length,
-        itemBuilder: (context, index) {
+        // itemCount: 1,
+        itemCount: widget.userSnap.data()![widget.follow.toLowerCase()].length,
+        itemBuilder: (context, listIndex) {
           // print((snapshot.data! as dynamic).docs[index].data());
           // print((snapshot.data! as dynamic).docs);
           return FutureBuilder(
@@ -76,7 +77,7 @@ class _FollowScreenState extends State<FollowScreen> {
                 .collection('users')
                 .where(
                   'uid',
-                  isEqualTo: userData[widget.follow.toLowerCase()][index],
+                  isEqualTo: userData[widget.follow.toLowerCase()][listIndex],
                 )
                 .get(),
             builder: (context, snapshot) {
@@ -85,38 +86,30 @@ class _FollowScreenState extends State<FollowScreen> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                print((snapshot.data! as dynamic).docs[index]['fullName']);
+                // print((snapshot.data! as dynamic).docs[index]['fullName']);
                 return InkWell(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ProfileScreen(
-                          uid: (snapshot.data! as dynamic).docs[index]['uid'],
+                          uid: (snapshot.data! as dynamic).docs[0]['uid'],
                         ),
                       ),
                     );
                   },
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundImage:
-                          // NetworkImage(
-                          //   (snapshot.data! as dynamic).docs[index]['photoUrl'],
-                          // ),
-                          CachedNetworkImageProvider(
-                        (snapshot.data! as dynamic).docs[index]['photoUrl'],
-                        // imageUrl: widget.snap['postUrl'],
-                        // placeholder: (context, url) =>
-                        //     CircularProgressIndicator(),
-                        // errorWidget: (context, url, error) => Icon(Icons.error),
-                        // fit: BoxFit.cover,
+                      backgroundImage: CachedNetworkImageProvider(
+                        (snapshot.data! as dynamic).docs[0]['photoUrl'],
                       ),
+                      backgroundColor: Colors.grey,
                       radius: 16,
                     ),
                     title: Text(
-                      (snapshot.data! as dynamic).docs[index]['fullName'],
+                      (snapshot.data! as dynamic).docs[0]['fullName'],
                     ),
                     subtitle: Text(
-                      (snapshot.data! as dynamic).docs[index]['userName'],
+                      (snapshot.data! as dynamic).docs[0]['userName'],
                     ),
                     // trailing: isFollowing
                     //     ? FollowButton(

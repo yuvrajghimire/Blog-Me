@@ -91,16 +91,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 children: [
                                   CircleAvatar(
                                     backgroundImage: CachedNetworkImageProvider(
-                                        userData['photoUrl']
-                                        // 'https://wallpapercave.com/wp/CpRGNUC.jpg',
-                                        // imageUrl: widget.snap['postUrl'],
-                                        // placeholder: (context, url) =>
-                                        //     CircularProgressIndicator(),
-                                        // errorWidget: (context, url, error) => Icon(Icons.error),
-                                        // fit: BoxFit.cover,
-                                        ),
+                                        userData['photoUrl']),
                                     radius: 40,
-                                    backgroundColor: Colors.white,
+                                    backgroundColor: Colors.grey,
                                   ),
                                   const SizedBox(height: 10),
                                   Text(
@@ -297,7 +290,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ),
                                         );
                                       },
-                                      child: Text('See more',
+                                      child: const Text('See more',
                                           style:
                                               TextStyle(color: Colors.white)),
                                       style: ButtonStyle(

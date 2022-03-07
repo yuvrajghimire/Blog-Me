@@ -53,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: CircularProgressIndicator(),
                   );
                 }
-                print((snapshot.data! as dynamic).docs.length);
+                // print((snapshot.data! as dynamic).docs.length);
                 return ListView.builder(
                   itemCount: (snapshot.data! as dynamic).docs.length,
                   itemBuilder: (context, index) {
@@ -68,17 +68,17 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundImage:
-                              // NetworkImage(
-                              //   (snapshot.data! as dynamic).docs[index]['photoUrl'],
-                              // ),
-                              CachedNetworkImageProvider(
-                            'https://wallpapercave.com/wp/CpRGNUC.jpg',
-                            // imageUrl: widget.snap['postUrl'],
-                            // placeholder: (context, url) =>
-                            //  CircularProgressIndicator(),
-                            // errorWidget: (context, url, error) => Icon(Icons.error),
-                            // fit: BoxFit.cover,
-                          ),
+                              NetworkImage(
+                                (snapshot.data! as dynamic).docs[index]['photoUrl'],
+                              ),
+                          //     CachedNetworkImageProvider(
+                          //   'https://wallpapercave.com/wp/CpRGNUC.jpg',
+                          //   // imageUrl: widget.snap['postUrl'],
+                          //   // placeholder: (context, url) =>
+                          //   //  CircularProgressIndicator(),
+                          //   // errorWidget: (context, url, error) => Icon(Icons.error),
+                          //   // fit: BoxFit.cover,
+                          // ),
                           radius: 16,
                         ),
                         title: Text(

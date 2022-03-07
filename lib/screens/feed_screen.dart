@@ -38,11 +38,11 @@ class _FeedScreenState extends State<FeedScreen> {
                 // switch
                 Row(
                   children: [
-                    Text('Light Mode'),
+                    const Text('Light Mode'),
                     Switch(
                       value: switchValue,
                       onChanged: (val) {
-                        print(val);
+                        // print(val);
                         // if (val = true) {
                         //   setState(() {
                         //     switchValue = true;
