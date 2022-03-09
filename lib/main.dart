@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
           home: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
+              print('changed');
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
                   return const ResponsiveLayout(
@@ -62,9 +63,7 @@ class MyApp extends StatelessWidget {
                     child: Text('${snapshot.error}'),
                   );
                 }
-              }
-              // means connection to future hasnt been made yet
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );

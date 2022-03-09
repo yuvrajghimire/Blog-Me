@@ -62,7 +62,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User? user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -142,11 +142,11 @@ class _DetailPageState extends State<DetailPage> {
                             onPressed: () async {
                               await FirestoreMethods().likePost(
                                   snapshot.data!.docs[widget.index]['postId'],
-                                  user.uid,
+                                  user!.uid,
                                   snapshot.data!.docs[widget.index]['likes']);
                             },
                             icon: snapshot.data!.docs[widget.index]['likes']
-                                    .contains(user.uid)
+                                    .contains(user!.uid)
                                 ? const Icon(Icons.thumb_up, size: 22)
                                 : const Icon(Icons.thumb_up_outlined, size: 22),
                           ),
@@ -291,7 +291,7 @@ class _DetailPageState extends State<DetailPage> {
                     child: TextField(
                       controller: _commentController,
                       decoration: InputDecoration(
-                        hintText: 'Comment as ${user.userName}',
+                        hintText: 'Comment as ${user!.userName}',
                         border: InputBorder.none,
                       ),
                     ),

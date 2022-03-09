@@ -121,7 +121,7 @@ class _CreatePostState extends State<CreatePost> {
     final inputBorder = OutlineInputBorder(
       borderSide: Divider.createBorderSide(context),
     );
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User? user = Provider.of<UserProvider>(context).getUser;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: SingleChildScrollView(
@@ -143,7 +143,7 @@ class _CreatePostState extends State<CreatePost> {
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(primaryColor)),
-                        onPressed: () => postImage(tags, user.uid,
+                        onPressed: () => postImage(tags, user!.uid,
                             user.userName, user.fullName, user.photoUrl),
                         child: const Text('POST',
                             style: TextStyle(

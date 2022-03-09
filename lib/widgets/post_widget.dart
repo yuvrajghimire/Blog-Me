@@ -27,7 +27,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<UserProvider>(context).getUser;
+    User? user = Provider.of<UserProvider>(context).getUser;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -118,7 +118,7 @@ class _PostCardState extends State<PostCard> {
                 Row(
                   children: [
                     LikeAnimation(
-                      isAnimating: widget.snap['likes'].contains(user.uid),
+                      isAnimating: widget.snap['likes'].contains(user!.uid),
                       smallLike: true,
                       child: IconButton(
                         padding: EdgeInsets.zero,

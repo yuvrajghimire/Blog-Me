@@ -1,4 +1,5 @@
 import 'package:blog_me/providers/user_provider.dart';
+import 'package:blog_me/utils/colors.dart';
 import 'package:blog_me/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,20 +25,23 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
   }
 
   addData() async {
-    UserProvider _userProvider = Provider.of(context, listen: false);
+    UserProvider _userProvider =
+        Provider.of<UserProvider>(context, listen: false);
     await _userProvider.refreshUser();
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth > webScreenSize) {
-        // web screen
-        return widget.webScreenLayout;
-      } else {
-        // mobile screen
-        return widget.mobileScreenLayout;
-      }
-    });
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > webScreenSize) {
+          // web screen
+          return widget.webScreenLayout;
+        } else {
+          // mobile screen
+          return widget.mobileScreenLayout;
+        }
+      },
+    );
   }
 }

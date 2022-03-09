@@ -13,7 +13,7 @@ class CommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final User? user = Provider.of<UserProvider>(context).getUser;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       child: Row(
@@ -71,7 +71,7 @@ class CommentCard extends StatelessWidget {
               ),
             ),
           ),
-          snap.data()['uid'] == user.uid
+          snap.data()['uid'] == user!.uid
               ? IconButton(
                   icon: const Icon(
                     Icons.delete,
