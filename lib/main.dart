@@ -1,3 +1,4 @@
+import 'package:blog_me/providers/theme_provider.dart';
 import 'package:blog_me/providers/user_provider.dart';
 import 'package:blog_me/responsive/mobile_screen_layout.dart';
 import 'package:blog_me/responsive/reponsive_layout_screen.dart';
@@ -26,53 +27,61 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: () => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (_) => UserProvider(),
-          ),
-        ],
-        child: MaterialApp(
-          builder: (context, widget) {
-            ScreenUtil.setContext(context);
-            return MediaQuery(
-              //Setting font does not change with system font size
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-              child: widget!,
-            );
-          },
-          debugShowCheckedModeBanner: false,
-          title: 'Blog Me',
-          theme: ThemeData(
-              scaffoldBackgroundColor: secondaryColor, fontFamily: 'Nunito'),
-          home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              print('changed');
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.hasData) {
-                  return const ResponsiveLayout(
-                    webScreenLayout: WebScreenLayout(),
-                    mobileScreenLayout: MobileScreenLayout(),
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text('${snapshot.error}'),
-                  );
-                }
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return const LoginScreen();
-            },
-          ),
-        ),
-      ),
-    );
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: () => MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                  create: (_) => UserProvider(),
+                ),
+                ChangeNotifierProvider(
+                  create: (_) => ThemeNotifier(),
+                ),
+              ],
+              child: Consumer<ThemeNotifier>(
+                builder: (context, theme, _) => MaterialApp(
+                  builder: (context, widget) {
+                    ScreenUtil.setContext(context);
+                    return MediaQuery(
+                      //Setting font does not change with system font size
+                      data:
+                          MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                      child: widget!,
+                    );
+                  },
+                  debugShowCheckedModeBanner: false,
+                  title: 'Blog Me',
+                  // darkTheme: ThemeData(
+                  //   brightness: Brightness.dark,
+                  // ),
+                  // themeMode: ThemeMode.dark,
+                  theme: theme.getTheme(),
+                  home: StreamBuilder(
+                    stream: FirebaseAuth.instance.authStateChanges(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.active) {
+                        if (snapshot.hasData) {
+                          return const ResponsiveLayout(
+                            webScreenLayout: WebScreenLayout(),
+                            mobileScreenLayout: MobileScreenLayout(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text('${snapshot.error}'),
+                          );
+                        }
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return const LoginScreen();
+                    },
+                  ),
+                ),
+              ),
+            ));
   }
 }

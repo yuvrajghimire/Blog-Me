@@ -42,17 +42,15 @@ class _FeedScreenState extends State<FeedScreen> {
                     Switch(
                       value: switchValue,
                       onChanged: (val) {
-                        // print(val);
-                        // if (val = true) {
-                        //   setState(() {
-                        //     switchValue = true;
-                        //   });
-                        // }
-                        // if (val = false) {
-                        //   setState(() {
-                        //     switchValue = false;
-                        //   });
-                        // }
+                        if (val == true) {
+                          setState(() {
+                            switchValue = true;
+                          });
+                        } else {
+                          setState(() {
+                            switchValue = false;
+                          });
+                        }
                       },
                     ),
                   ],

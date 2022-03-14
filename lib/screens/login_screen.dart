@@ -1,4 +1,5 @@
 import 'package:blog_me/resources/auth.dart';
+import 'package:blog_me/responsive/mobile_screen_layout.dart';
 import 'package:blog_me/screens/signup_screen.dart';
 import 'package:blog_me/utils/colors.dart';
 import 'package:blog_me/utils/utils.dart';
@@ -161,6 +162,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                         if (res == 'success') {
                           showSnackBar(context, 'Successful!');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MobileScreenLayout()));
                         } else {
                           showSnackBar(context, 'Invalid email or password!');
                         }

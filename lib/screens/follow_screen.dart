@@ -1,9 +1,14 @@
+import 'package:blog_me/resources/auth.dart';
+import 'package:blog_me/screens/login_screen.dart';
 import 'package:blog_me/screens/profile_screen.dart';
 import 'package:blog_me/utils/colors.dart';
+import 'package:blog_me/widgets/follow_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../resources/firestore_methods.dart';
 
 class FollowScreen extends StatefulWidget {
   final String uid;
@@ -111,37 +116,45 @@ class _FollowScreenState extends State<FollowScreen> {
                     subtitle: Text(
                       (snapshot.data! as dynamic).docs[0]['userName'],
                     ),
-                    // trailing: isFollowing
-                    //     ? FollowButton(
-                    //         text: 'Unfollow',
-                    //         backgroundColor: Colors.white,
-                    //         textColor: primaryColor,
-                    //         borderColor: primaryColor,
-                    //         function: () async {
-                    //           await FirestoreMethods().followUser(
-                    //             FirebaseAuth.instance.currentUser!.uid,
-                    //             userData['uid'],
-                    //           );
-                    //           setState(() {
-                    //             isFollowing = false;
-                    //           });
-                    //         },
-                    //       )
-                    //     : FollowButton(
-                    //         text: 'Follow',
-                    //         backgroundColor: primaryColor,
-                    //         textColor: Colors.white,
-                    //         borderColor: Colors.black,
-                    //         function: () async {
-                    //           await FirestoreMethods().followUser(
-                    //             FirebaseAuth.instance.currentUser!.uid,
-                    //             userData['uid'],
-                    //           );
-                    //           setState(() {
-                    //             isFollowing = true;
-                    //           });
-                    //         },
-                    //       ),
+                    // trailing: Column(
+                    //   children: [
+                    //     isFollowing
+                    //         ? Expanded(
+                    //             child: FollowButton(
+                    //               text: 'Unfollow',
+                    //               backgroundColor: Colors.white,
+                    //               textColor: primaryColor,
+                    //               borderColor: primaryColor,
+                    //               function: () async {
+                    //                 await FirestoreMethods().followUser(
+                    //                   FirebaseAuth.instance.currentUser!.uid,
+                    //                   userData['uid'],
+                    //                 );
+                    //                 setState(() {
+                    //                   isFollowing = false;
+                    //                 });
+                    //               },
+                    //             ),
+                    //           )
+                    //         : Expanded(
+                    //             child: FollowButton(
+                    //               text: 'Follow',
+                    //               backgroundColor: primaryColor,
+                    //               textColor: Colors.white,
+                    //               borderColor: Colors.black,
+                    //               function: () async {
+                    //                 await FirestoreMethods().followUser(
+                    //                   FirebaseAuth.instance.currentUser!.uid,
+                    //                   userData['uid'],
+                    //                 );
+                    //                 setState(() {
+                    //                   isFollowing = true;
+                    //                 });
+                    //               },
+                    //             ),
+                    //           ),
+                    //   ],
+                    // ),
                   ),
                 );
               }

@@ -58,10 +58,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .contains(FirebaseAuth.instance.currentUser!.uid);
       setState(() {});
     } catch (e) {
-      showSnackBar(
-        context,
-        e.toString(),
-      );
+      // showSnackBar(
+      //   context,
+      //   e.toString(),
+      // );
     }
     setState(() {
       isLoading = false;
@@ -219,8 +219,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           return Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
+                              color: secondaryColor,
                               border: Border.all(color: Colors.grey.shade300),
                               borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey
+                                      .withOpacity(0.5), //color of shadow
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
                             ),
                             margin: const EdgeInsets.only(bottom: 10),
                             child: Column(
@@ -263,16 +273,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          '${snap['description'].length > 20 ? snap['description'].substring(0, 20) + '...' : snap['description']}',
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey,
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            '${snap['description'].length > 80 ? snap['description'].substring(0, 80) + '...' : snap['description']}',
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey,
+                                            ),
                                           ),
                                         ),
                                       ),
