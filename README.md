@@ -6,7 +6,9 @@ BlogMe is an easy blog writing app.
 
 #### Description:
 
-BlogMe is a blog writing app which allows users to have basic features to upload a blog and interact with other blogs from different users.
+BlogMe is a blog writing app which allows users to have basic features to upload a blog and interact with other blogs from different users. It is user friendly and easy to navigate throughout the app. 
+
+I write notes in my phone about different ideas and opinions. I thought it would be nice if I could post it somewhere easily as a blog. So this project came into my mind. This app allows anyone to just share their thoughts with the world.
 
 #### Features: 
 
