@@ -1,5 +1,5 @@
 name: blog_me
-description: A blog app
+description: BlogMe is a blog writing app which allows users to have basic features to upload a blog and interact with other blogs from different users.
 
 publish_to: 'none'
 

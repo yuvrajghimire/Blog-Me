@@ -52,7 +52,7 @@ class _PostCardState extends State<PostCard> {
                 color: Colors.grey.withOpacity(0.5), //color of shadow
                 spreadRadius: 2,
                 blurRadius: 5,
-                offset: Offset(0, 2),
+                offset: const Offset(0, 2),
               ),
             ]),
         margin: const EdgeInsets.only(bottom: 10),

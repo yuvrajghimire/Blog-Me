@@ -1,14 +1,9 @@
-import 'package:blog_me/resources/auth.dart';
-import 'package:blog_me/screens/login_screen.dart';
 import 'package:blog_me/screens/profile_screen.dart';
 import 'package:blog_me/utils/colors.dart';
-import 'package:blog_me/widgets/follow_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../resources/firestore_methods.dart';
 
 class FollowScreen extends StatefulWidget {
   final String uid;

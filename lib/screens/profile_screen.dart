@@ -4,7 +4,6 @@ import 'package:blog_me/screens/detail_screen.dart';
 import 'package:blog_me/screens/follow_screen.dart';
 import 'package:blog_me/screens/login_screen.dart';
 import 'package:blog_me/utils/colors.dart';
-import 'package:blog_me/utils/utils.dart';
 import 'package:blog_me/widgets/follow_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -228,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       .withOpacity(0.5), //color of shadow
                                   spreadRadius: 2,
                                   blurRadius: 5,
-                                  offset: Offset(0, 2),
+                                  offset: const Offset(0, 2),
                                 ),
                               ],
                             ),

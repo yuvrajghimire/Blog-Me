@@ -32,7 +32,7 @@ class ThemeNotifier with ChangeNotifier {
       if (themeMode == 'light') {
         _themeData = lightTheme;
       } else {
-        print('setting dark theme');
+        // print('setting dark theme');
         _themeData = darkTheme;
       }
       notifyListeners();

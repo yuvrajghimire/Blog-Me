@@ -1,16 +1,52 @@
-# blog_me
+# BlogMe
 
-A new Flutter project.
+BlogMe is an easy blog writing app.
 
-## Getting Started
+#### Video Demo:  <URL HERE>
 
-This project is a starting point for a Flutter application.
+#### Description:
 
-A few resources to get you started if this is your first Flutter project:
+BlogMe is a blog writing app which allows users to have basic features to upload a blog and interact with other blogs from different users.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+#### Features: 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The key features are:
+- Login / logout
+- Create blogs
+- Adding pictures
+- Categories
+- User profile
+- Following / followers
+- Add/delete posts
+- Like
+- Comment
+- Add tags to the post, etc
+
+#### What this project uses:  
+1. Development Environment
+     - Flutter Development Kit
+2. Language
+     - Dart
+3. Tools used within the project
+     - Firebase
+     - Provider
+     - intl
+4. Packages used from pub.dev
+     - firebase_auth, firebase_core, firebase_storage, cloud_firestore
+     - cached_network_image
+     - cupertino_icons
+     - shared_preferences
+     - intl
+     - uuid
+     - provider
+     - image_picker
+     - fluttericon
+     - flutter_staggered_grid_view
+     - flutter_screenutil
+5. Fonts
+     - Nunito
+6. Colors
+     - #183454
+     - #183454
+     - #ffffff
+     - #183454
