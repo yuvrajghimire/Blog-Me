@@ -26,9 +26,9 @@ class _FeedScreenState extends State<FeedScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 // logo
-                const Text(
+                Text(
                   'BlogMe',
                   style: TextStyle(
                     fontSize: 18,
@@ -36,25 +36,25 @@ class _FeedScreenState extends State<FeedScreen> {
                   ),
                 ),
                 // switch
-                Row(
-                  children: [
-                    const Text('Light Mode'),
-                    Switch(
-                      value: switchValue,
-                      onChanged: (val) {
-                        if (val == true) {
-                          setState(() {
-                            switchValue = true;
-                          });
-                        } else {
-                          setState(() {
-                            switchValue = false;
-                          });
-                        }
-                      },
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     const Text('Light Mode'),
+                //     Switch(
+                //       value: switchValue,
+                //       onChanged: (val) {
+                //         if (val == true) {
+                //           setState(() {
+                //             switchValue = true;
+                //           });
+                //         } else {
+                //           setState(() {
+                //             switchValue = false;
+                //           });
+                //         }
+                //       },
+                //     ),
+                //   ],
+                // ),
               ],
             ),
             Column(

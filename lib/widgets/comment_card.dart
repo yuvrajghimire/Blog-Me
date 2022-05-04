@@ -1,5 +1,6 @@
 import 'package:blog_me/models/user.dart';
 import 'package:blog_me/providers/user_provider.dart';
+import 'package:blog_me/resources/firestore_methods.dart';
 import 'package:blog_me/utils/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,14 @@ import 'package:provider/provider.dart';
 class CommentCard extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   final snap;
-  const CommentCard({Key? key, required this.snap}) : super(key: key);
+  final postId;
+  final snapshotData;
+  const CommentCard(
+      {Key? key,
+      required this.snap,
+      required this.postId,
+      required this.snapshotData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +86,8 @@ class CommentCard extends StatelessWidget {
                     size: 16,
                   ),
                   onPressed: () async {
-                    // await FirestoreMethods()
-                    //     .deleteComment(snap['postId'], user.uid, snap.data());
+                    await FirestoreMethods().deleteComment(postId, user.uid,
+                        snapshotData, snap.data()['commentId']);
                   },
                 )
               : const SizedBox()

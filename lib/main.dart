@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             //   brightness: Brightness.dark,
             // ),
             // themeMode: ThemeMode.dark,
-            theme: theme.getTheme(),
+            theme: ThemeData(fontFamily: 'Nunito'),
             home: StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {

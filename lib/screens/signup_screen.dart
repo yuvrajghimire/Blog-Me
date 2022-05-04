@@ -22,6 +22,8 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   bool _isLoading = false;
@@ -34,6 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordController.dispose();
     _nameController.dispose();
     _userNameController.dispose();
+    _confirmPasswordController.dispose();
   }
 
   selectImage() async {
@@ -212,9 +215,9 @@ class _SignupScreenState extends State<SignupScreen> {
                             color: Colors.grey.shade600)),
                     const SizedBox(height: 10),
                     TextFieldInput(
-                        textEditingController: _passwordController,
+                        textEditingController: _confirmPasswordController,
                         textInputType: TextInputType.text,
-                        hintText: 'Password',
+                        hintText: 'Confirm Password',
                         isPass: true,
                         icon: const Icon(Linecons.lock,
                             size: 20, color: primaryColor)),

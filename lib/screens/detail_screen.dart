@@ -335,8 +335,9 @@ class _DetailPageState extends State<DetailPage> {
                   physics: const ScrollPhysics(),
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (ctx, index) => CommentCard(
-                    snap: snapshot.data!.docs[index],
-                  ),
+                      snap: snapshot.data!.docs[index],
+                      postId: widget.postId,
+                      snapshotData: snapshot.data),
                 );
               },
             ),

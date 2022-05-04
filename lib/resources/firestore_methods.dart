@@ -71,15 +71,21 @@ class FirestoreMethods {
     }
   }
 
-  // Future<void> deleteComment(String postId, String uid, List comments, String commentId) async {
-  //   if (comments.contains(uid)) {
-  //     await _firestore.collection('posts').doc(postId).collection('comments').doc(commentId).update(
-  //       {
-  //         'comments': FieldValue.arrayRemove([uid])
-  //       },
-  //     );
-  //   }
-  // }
+  Future<void> deleteComment(
+      String postId, String uid, List comments, String commentId) async {
+    if (comments.contains(uid)) {
+      await _firestore
+          .collection('posts')
+          .doc(postId)
+          .collection('comments')
+          .doc(commentId)
+          .update(
+        {
+          'comments': FieldValue.arrayRemove([uid])
+        },
+      );
+    }
+  }
 
   Future<String> postComment(String postId, String text, String uid,
       String fullName, String profilePic) async {

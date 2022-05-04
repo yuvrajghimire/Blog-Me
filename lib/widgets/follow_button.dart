@@ -18,6 +18,8 @@ class FollowButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
+      style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(Colors.transparent)),
       onPressed: function,
       child: Container(
         decoration: BoxDecoration(
