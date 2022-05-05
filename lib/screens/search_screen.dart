@@ -66,21 +66,21 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       ),
                       child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(
-                                (snapshot.data! as dynamic).docs[index]['photoUrl'],
-                              ),
-                          //     CachedNetworkImageProvider(
-                          //   'https://wallpapercave.com/wp/CpRGNUC.jpg',
-                          //   // imageUrl: widget.snap['postUrl'],
-                          //   // placeholder: (context, url) =>
-                          //   //  CircularProgressIndicator(),
-                          //   // errorWidget: (context, url, error) => Icon(Icons.error),
-                          //   // fit: BoxFit.cover,
-                          // ),
-                          radius: 16,
-                        ),
+                        // leading: CircleAvatar(
+                        //   backgroundImage:
+                        //       NetworkImage(
+                        //         (snapshot.data! as dynamic).docs[index]['photoUrl'],
+                        //       ),
+                        //   //     CachedNetworkImageProvider(
+                        //   //   'https://wallpapercave.com/wp/CpRGNUC.jpg',
+                        //   //   // imageUrl: widget.snap['postUrl'],
+                        //   //   // placeholder: (context, url) =>
+                        //   //   //  CircularProgressIndicator(),
+                        //   //   // errorWidget: (context, url, error) => Icon(Icons.error),
+                        //   //   // fit: BoxFit.cover,
+                        //   // ),
+                        //   radius: 16,
+                        // ),
                         title: Text(
                           (snapshot.data! as dynamic).docs[index]['fullName'],
                         ),

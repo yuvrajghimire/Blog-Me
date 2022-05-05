@@ -52,7 +52,7 @@ The root directory has serveral folders and files which are default in a flutter
 
 **widgets**: This folder includes 5 files. These files are the widgets which are used on several occasions within the project. Such as textfield template, comment template, etc.
 
-
+****
 #### Features: 
 
 The key features are:
