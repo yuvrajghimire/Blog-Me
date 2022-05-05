@@ -2,7 +2,7 @@
 
 BlogMe is an easy blog writing app.
 
-#### Video Demo:  <URL HERE>
+#### Video Demo:  https://www.youtube.com/watch?v=nW7brOLmLtA
 
 #### Description:
 
