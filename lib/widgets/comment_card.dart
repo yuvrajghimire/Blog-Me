@@ -40,6 +40,7 @@ class CommentCard extends StatelessWidget {
               // fit: BoxFit.cover,
             ),
             radius: 18,
+            backgroundColor: Colors.grey,
           ),
           Expanded(
             child: Padding(

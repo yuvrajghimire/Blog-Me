@@ -1,3 +1,4 @@
+import 'package:blog_me/screens/detail_screen.dart';
 import 'package:blog_me/screens/profile_screen.dart';
 import 'package:blog_me/utils/dimensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -110,15 +111,36 @@ class _SearchScreenState extends State<SearchScreen> {
                       //   (snapshot.data! as dynamic).docs[index]['postUrl'],
                       //   fit: BoxFit.cover,
                       // ),
-                      CachedNetworkImage(
-                    // imageUrl: 'https://wallpapercave.com/wp/CpRGNUC.jpg',
-                    imageUrl: (snapshot.data! as dynamic).docs[index]
-                        ['postUrl'],
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                    fit: BoxFit.cover,
+                      GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                            postId: (snapshot.data! as dynamic)
+                                .docs[index]
+                                .data()['postId']
+                                .toString(),
+                            snap:
+                                (snapshot.data! as dynamic).docs[index].data(),
+                            index: index,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Hero(
+                      tag: (snapshot.data! as dynamic).docs[index].data(),
+                      child: CachedNetworkImage(
+                        imageUrl: (snapshot.data! as dynamic).docs[index]
+                            ['postUrl'],
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(color: Colors.grey),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   staggeredTileBuilder: (index) => MediaQuery.of(context)
                               .size

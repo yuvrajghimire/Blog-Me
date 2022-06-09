@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                         if (res == 'success') {
                           showSnackBar(context, 'Successful!');
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
@@ -189,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
                           GestureDetector(
-                            onTap: () => Navigator.of(context).push(
+                            onTap: () => Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) => const SignupScreen(),
                               ),

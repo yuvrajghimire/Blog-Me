@@ -259,10 +259,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         });
                         if (res == 'success') {
                           showSnackBar(context, res);
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ResponsiveLayout(
-                                  webScreenLayout: WebScreenLayout(),
-                                  mobileScreenLayout: MobileScreenLayout())));
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const ResponsiveLayout(
+                                      webScreenLayout: WebScreenLayout(),
+                                      mobileScreenLayout:
+                                          MobileScreenLayout())));
                         } else {
                           showSnackBar(context, 'Something went wrong!');
                         }
@@ -283,7 +285,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
                           GestureDetector(
-                            onTap: () => Navigator.of(context).push(
+                            onTap: () => Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) => const LoginScreen(),
                               ),

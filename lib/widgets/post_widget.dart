@@ -61,22 +61,25 @@ class _PostCardState extends State<PostCard> {
             Stack(
               alignment: Alignment.center,
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: CachedNetworkImage(
-                      // imageUrl:
-                      //     'https://asia.olympus-imaging.com/content/000090033.jpg',
-                      imageUrl: widget.snap['postUrl'],
-                      placeholder: (context, url) => Image.asset(
-                        'assets/images/loading.gif',
+                Hero(
+                  tag: widget.snap,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: CachedNetworkImage(
+                        // imageUrl:
+                        //     'https://asia.olympus-imaging.com/content/000090033.jpg',
+                        imageUrl: widget.snap['postUrl'],
+                        placeholder: (context, url) => Image.asset(
+                          'assets/images/loading.gif',
+                          fit: BoxFit.cover,
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                         fit: BoxFit.cover,
                       ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -96,7 +99,7 @@ class _PostCardState extends State<PostCard> {
                 )
               ],
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -107,6 +110,7 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
             ),
+            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -99,20 +99,23 @@ class _DetailPageState extends State<DetailPage> {
               ],
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              height: 280,
-              // child: Image.network(
-              //   widget.snap['postUrl'],
-              // ),
-              child: CachedNetworkImage(
-                imageUrl: widget.snap['postUrl'],
-                // imageUrl: widget.snap['postUrl'],
-                placeholder: (context, url) => Image.asset(
-                  'assets/images/loading.gif',
+            Hero(
+              tag: widget.snap,
+              child: SizedBox(
+                height: 280,
+                // child: Image.network(
+                //   widget.snap['postUrl'],
+                // ),
+                child: CachedNetworkImage(
+                  imageUrl: widget.snap['postUrl'],
+                  // imageUrl: widget.snap['postUrl'],
+                  placeholder: (context, url) => Image.asset(
+                    'assets/images/loading.gif',
+                    fit: BoxFit.cover,
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                   fit: BoxFit.cover,
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                fit: BoxFit.cover,
               ),
             ),
             StreamBuilder(
@@ -275,7 +278,7 @@ class _DetailPageState extends State<DetailPage> {
               children: [
                 CircleAvatar(
                   backgroundImage: CachedNetworkImageProvider(
-                    widget.snap['profileImage'],
+                    user!.photoUrl,
                     // imageUrl: widget.snap['postUrl'],
                     // placeholder: (context, url) =>
                     //     CircularProgressIndicator(),
